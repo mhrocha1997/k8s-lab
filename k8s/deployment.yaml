@@ -5,7 +5,7 @@ metadata:
   labels:
     app: hello-go
 spec:
-  replicas: 10
+  replicas: 1
   selector:
     matchLabels:
       app: hello-go
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: hello-go
-        image: mhrocha1997/hello-go:v3
+        image: mhrocha1997/hello-go:v5.1
         # env: 
         #   - name: NAME
         #     value: "Marcelo"
@@ -26,3 +26,14 @@ spec:
         envFrom:
           - configMapRef:
               name: hello-go-env
+        volumeMounts:
+          - name: config-volume
+            mountPath: /go/env
+
+      volumes:
+        - name: config-volume
+          configMap:
+            name: hello-go-family
+            items: 
+              - key: members
+                path: "members.txt"
