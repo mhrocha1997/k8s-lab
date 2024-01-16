@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hello-go-env
+data:
+  NAME: Marcelo
+  AGE: "26"

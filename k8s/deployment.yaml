@@ -18,8 +18,11 @@ spec:
       containers:
       - name: hello-go
         image: mhrocha1997/hello-go:v3
-        env: 
-          - name: NAME
-            value: "Marcelo"
-          - name: AGE
-            value: "26"
+        # env: 
+        #   - name: NAME
+        #     value: "Marcelo"
+        #   - name: AGE
+        #     value: "26"
+        envFrom:
+          - configMapRef:
+              name: hello-go-env
