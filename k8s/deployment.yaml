@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: hello-go
-        image: mhrocha1997/hello-go:v5.1
+        image: mhrocha1997/hello-go:v6
         # env: 
         #   - name: NAME
         #     value: "Marcelo"
@@ -26,6 +26,8 @@ spec:
         envFrom:
           - configMapRef:
               name: hello-go-env
+          - secretRef:
+              name: hello-go-secret
         volumeMounts:
           - name: config-volume
             mountPath: /go/env
