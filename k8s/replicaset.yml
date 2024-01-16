@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: hello-go
+  labels:
+    app: hello-go
+spec:
+  selector: 
+    matchLabels:
+      app: hello-go
+  replicas: 2
+  template:
+    metadata:
+      name: hello-go
+      labels:
+        app: hello-go
+    spec:
+      containers:
+      - name: hello-go
+        image: mhrocha1997/hello-go:v2
