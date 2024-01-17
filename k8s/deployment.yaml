@@ -17,15 +17,27 @@ spec:
     spec:
       containers:
       - name: hello-go
-        image: mhrocha1997/hello-go:v6.2
+        image: mhrocha1997/hello-go:v6.4
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+
+        startupProbe:
+          httpGet:
+            path: /healthz
+            port: 8000
+          periodSeconds: 3
+          failureThreshold: 30
         readinessProbe:
           httpGet:
             path: /healthz
             port: 8000
           periodSeconds: 3
           failureThreshold: 1
-          initialDelaySeconds: 10
-        
         livenessProbe:
           httpGet:
             path: /healthz
@@ -34,15 +46,6 @@ spec:
           failureThreshold: 3
           timeoutSeconds: 10
           successThreshold: 1
-          initialDelaySeconds: 10
-
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
-          requests:
-            memory: "64Mi"
-            cpu: "250m"
         envFrom:
           - configMapRef:
               name: hello-go-env
