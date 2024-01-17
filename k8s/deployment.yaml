@@ -17,15 +17,23 @@ spec:
     spec:
       containers:
       - name: hello-go
-        image: mhrocha1997/hello-go:v6.1
-        livenessProbe:
+        image: mhrocha1997/hello-go:v6.2
+        # livenessProbe:
+        #   httpGet:
+        #     path: /healthz
+        #     port: 8000
+        #   periodSeconds: 5
+        #   failureThreshold: 3
+        #   timeoutSeconds: 10
+        #   successThreshold: 1
+        readinessProbe:
           httpGet:
             path: /healthz
             port: 8000
-          periodSeconds: 5
-          failureThreshold: 3
-          timeoutSeconds: 10
-          successThreshold: 1
+          periodSeconds: 3
+          failureThreshold: 1
+          initialDelaySeconds: 10
+
         resources:
           limits:
             memory: "128Mi"
