@@ -17,12 +17,22 @@ spec:
     spec:
       containers:
       - name: hello-go
-        image: mhrocha1997/hello-go:v6
-        # env: 
-        #   - name: NAME
-        #     value: "Marcelo"
-        #   - name: AGE
-        #     value: "26"
+        image: mhrocha1997/hello-go:v6.1
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8000
+          periodSeconds: 5
+          failureThreshold: 3
+          timeoutSeconds: 10
+          successThreshold: 1
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
         envFrom:
           - configMapRef:
               name: hello-go-env
@@ -31,7 +41,6 @@ spec:
         volumeMounts:
           - name: config-volume
             mountPath: /go/env
-
       volumes:
         - name: config-volume
           configMap:
