@@ -54,7 +54,12 @@ spec:
         volumeMounts:
           - name: config-volume
             mountPath: /go/env
+          - name: hello-go-pvc-volume
+            mountPath: /go/pvc
       volumes:
+        - name: hello-go-pvc-volume
+          persistentVolumeClaim:
+            claimName: hello-go-pvc
         - name: config-volume
           configMap:
             name: hello-go-family
